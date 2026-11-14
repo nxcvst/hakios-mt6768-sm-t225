@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "target": "Samsung Galaxy Tab A7 Lite LTE (SM-T225)",
+  "source_dts": "../gta7lite.dts (Linux DTS supplied in workspace)",
+  "evidence_scope": "DTS declarations only; not a live bootloader memory map",
+  "physical_ram": {
+    "base": "0x40000000",
+    "size": "0xc0000000",
+    "end_exclusive": "0x100000000",
+    "status": "declared by DTS; verify against live bootloader/Android memory reservations"
+  },
+  "xnu_assignment": {
+    "kernel_load_address": null,
+    "kernel_reserved_range": null,
+    "xnu_physical_base": null,
+    "xnu_virtual_base": null,
+    "xnu_memory_size": null,
+    "top_of_kernel_data": null,
+    "loader_reserved_range": null,
+    "apple_device_tree_address": null,
+    "boot_args_address": null,
+    "boot_arguments": null,
+    "status": "unassigned until Samsung boot handoff and runtime reservations are verified"
+  },
+  "fixed_reserved_regions": [
+    { "name": "mblock-1-dramc-rk0", "base": "0xbffff000", "size": "0x1000", "no_map": true, "purpose": "DRAM controller metadata; DTS label/compatible", "status": "DTS-declared; preserve" },
+    { "name": "mblock-2-dramc-rk1", "base": "0xfffff000", "size": "0x1000", "no_map": true, "purpose": "DRAM controller metadata; DTS label/compatible", "status": "DTS-declared; preserve" },
+    { "name": "mblock-3-gz", "base": "0x7fc00000", "size": "0x400000", "no_map": true, "purpose": "MediaTek GZ secure subsystem", "status": "DTS-declared; preserve" },
+    { "name": "mblock-4-gz-log", "base": "0x7fa00000", "size": "0x41000", "no_map": true, "purpose": "GZ log", "status": "DTS-declared; preserve" },
+    { "name": "mblock-5-log_store", "base": "0x7fbc0000", "size": "0x40000", "no_map": false, "purpose": "vendor log store", "status": "DTS-declared; preserve pending runtime confirmation" },
+    { "name": "mblock-6-atf-reserved", "base": "0x47d80000", "size": "0x50000", "no_map": true, "purpose": "Arm Trusted Firmware reservation", "status": "DTS-declared; preserve" },
+    { "name": "mblock-7-atf-ramdump-reserved", "base": "0xbff70000", "size": "0x80000", "no_map": true, "purpose": "ATF ramdump", "status": "DTS-declared; preserve" },
+    { "name": "mblock-8-atf-log-reserved", "base": "0xbff30000", "size": "0x40000", "no_map": true, "purpose": "ATF log", "status": "DTS-declared; preserve" },
+    { "name": "mblock-9-tee-secmem", "base": "0x7ac00000", "size": "0x400000", "no_map": true, "purpose": "TEE secure memory", "status": "DTS-declared; preserve" },
+    { "name": "mblock-10-SSPM-reserved", "base": "0x7fb00000", "size": "0xc0000", "no_map": true, "purpose": "SSPM reservation", "status": "DTS-declared; preserve" },
+    { "name": "mblock-11-tee-reserved", "base": "0x7ba00000", "size": "0x4000000", "no_map": true, "purpose": "TEE reservation", "status": "DTS-declared; preserve" },
+    { "name": "mblock-12-pl-bootarg", "base": "0x47dd0000", "size": "0x200000", "no_map": false, "purpose": "preloader boot arguments", "status": "DTS-declared; preserve pending runtime confirmation" },
+    { "name": "mblock-13-ram_console", "base": "0x47c80000", "size": "0x10000", "no_map": true, "purpose": "RAM console", "status": "DTS-declared; preserve" },
+    { "name": "mblock-14-pstore", "base": "0x47c90000", "size": "0xe0000", "no_map": true, "purpose": "persistent store", "status": "DTS-declared; preserve" },
+    { "name": "mblock-15-minirdump", "base": "0x47d70000", "size": "0x10000", "no_map": true, "purpose": "mini dump", "status": "DTS-declared; preserve" },
+    { "name": "mblock-16-framebuffer", "base": "0x79da0000", "size": "0xe60000", "no_map": true, "purpose": "boot framebuffer reservation", "status": "DTS-declared; preserve until its handoff use is established" },
+    { "name": "mblock-17-lk_addr_mrdump", "base": "0x48000000", "size": "0x400000", "no_map": true, "purpose": "LK ramdump area", "status": "DTS-declared; preserve" },
+    { "name": "mblock-18-dtb_addr_mrdump", "base": "0x47880000", "size": "0x80000", "no_map": false, "purpose": "DTB/ramdump area", "status": "DTS-declared; preserve pending runtime confirmation" },
+    { "name": "sec-autocomment-reserve-memory", "base": "0x47400000", "size": "0x10000", "no_map": false, "purpose": "secure-world diagnostic reservation", "status": "DTS-declared; preserve pending runtime confirmation" },
+    { "name": "sec-extrainfo-reserve-memory", "base": "0x47410000", "size": "0x1f0000", "no_map": false, "purpose": "secure-world extra information", "status": "DTS-declared; preserve pending runtime confirmation" },
+    { "name": "sec-lastklog", "base": "0x46e00000", "size": "0x200000", "no_map": false, "purpose": "secure log reservation", "status": "DTS-declared; preserve pending runtime confirmation" },
+    { "name": "sec-log-reserve-memory", "base": "0x46c00000", "size": "0x200000", "no_map": false, "purpose": "secure log reservation", "status": "DTS-declared; preserve pending runtime confirmation" },
+    { "name": "sec-logger-reserve-memory", "base": "0x47000000", "size": "0x400000", "no_map": false, "purpose": "secure logger reservation", "status": "DTS-declared; preserve pending runtime confirmation" }
+  ],
+  "dynamic_reserved_regions": [
+    { "name": "consys-reserve-memory", "size": "0x440000", "alignment": "0x1000000", "allocation_window_base": "0x40000000", "allocation_window_size": "0x80000000", "no_map": true, "purpose": "connectivity subsystem", "status": "DTS-declared allocation policy; physical placement unresolved" },
+    { "name": "ion-carveout-heap", "size": "0x5000", "alignment": "0x1000", "allocation_window_base": "0xc0000000", "allocation_window_size": "0x10000000", "no_map": true, "purpose": "ION carveout", "status": "DTS-declared allocation policy; physical placement unresolved" },
+    { "name": "reserve-memory-scp_share", "size": "0x300000", "alignment": "0x1000000", "allocation_window_base": "0x40000000", "allocation_window_size": "0x50000000", "no_map": true, "purpose": "SCP shared memory", "status": "DTS-declared allocation policy; physical placement unresolved" },
+    { "name": "reserve-memory-sspm_share", "size": "0x510000", "alignment": "0x10000", "allocation_window_base": "0x40000000", "allocation_window_size": "0x60000000", "no_map": true, "purpose": "SSPM shared memory", "status": "DTS-declared allocation policy; physical placement unresolved" },
+    { "name": "ssmr-reserved-cma_memory", "size": "0x18000000", "alignment": "0x1000000", "allocation_window_base": "0xc0000000", "allocation_window_size": "0x10000000", "reusable": true, "purpose": "SSMR/CMA shared DMA pool", "status": "unresolved DTS size/window inconsistency: requested size exceeds declared allocation window; do not place or subtract as a fixed range" },
+    { "name": "wifi-reserve-memory", "size": "0x300000", "alignment": "0x1000000", "allocation_window_base": "0x40000000", "allocation_window_size": "0x80000000", "no_map": true, "purpose": "Wi-Fi shared memory", "status": "DTS-declared allocation policy; physical placement unresolved" },
+    { "name": "zone-movable-cma-memory", "purpose": "empty reserved-memory node", "status": "no size or address declared" }
+  ],
+  "boot_facts": {
+    "cpu_count_declared": 8,
+    "cpu_type_declared": "Arm Cortex-A53",
+    "cpu_enable_method_declared": "PSCI",
+    "psci_method_declared": "SMC",
+    "gic_compatible_declared": "arm,gic-v3",
+    "gic_register_ranges_declared": ["0x0c000000+0x40000", "0x0c100000+0x200000", "0x10200a80+0x50"],
+    "generic_timer_compatible_declared": "arm,armv8-timer"
+  }
+}
