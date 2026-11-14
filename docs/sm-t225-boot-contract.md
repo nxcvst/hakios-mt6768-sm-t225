@@ -1,6 +1,6 @@
 # SM-T225 offline boot contract and memory map
 
-This is an offline description of what is known from this repository and the supplied Linux DTS at `../gta7lite.dts`. The DTS identifies the model as `MT8768WT` and the root compatible as `mediatek,MT6765`; it is useful hardware documentation, but it is not an Apple Device Tree and does not prove what Samsung's production boot chain leaves active. The JSON alongside this document is the machine-readable inventory of addresses declared by that DTS.
+This is an offline description of what is known from this repository, the supplied Linux DTS at `../gta7lite.dts`, and user-provided read-only observations from the running Android system. The DTS identifies the model as `MT8768WT` and the root compatible as `mediatek,MT6765`; it is useful hardware documentation, but it is not an Apple Device Tree and does not prove what Samsung's production boot chain leaves active. The JSON alongside this document is the machine-readable inventory of DTS addresses and runtime Linux summary values.
 
 ## Existing donor boot path
 
@@ -32,6 +32,10 @@ The XNU ABI-level obligations above are requirements of the existing implementat
 ### Declared RAM window
 
 The supplied Linux DTS `memory.reg` is `<0 0x40000000 0 0xc0000000>`, which denotes physical RAM `[0x40000000, 0x100000000)` (3 GiB). This is the best current target range, but it is only a DTS declaration. The Android kernel's final memory map, bootloader carveouts, secure-world assignments, and the actual bank layout must be checked before XNU claims any portion as available.
+
+The running Android 4.19.191 kernel reports a DMA32 zone with `start_pfn = 262144`, `spanned = 786431`, `present = 757016`, and `managed = 705859`. The user also supplied `MemTotal = 2823436 kB` and `CmaTotal = 409600 kB`. `MemTotal` equals `managed * 4 kB`, consistent with 4 KiB pages; on that basis `start_pfn` maps to `0x40000000`, matching the DTS RAM base. This is useful independent confirmation of the start address and broad span used by Linux. The zone's `spanned` count is not a physical bank inventory, and the gaps between spanned, present, and managed counts cannot be assigned to particular firmware, secure, CMA, or hardware-hole ranges from these counters. `CmaTotal` is an allocator total, not a physical CMA base address.
+
+The runtime sysfs reservation directory exposed additional node names beyond the supplied DTS, including `mblock-17-SPM-reserved` through `mblock-24-dtb_addr_mrdump`. Property contents and the live FDT are root-only on this device, and the shell account has no `su`; therefore those names do not verify their addresses or sizes. `/proc/iomem` is also denied. These observations establish that the current runtime reservation tree differs in naming/content from the supplied file, but do not establish the final physical reservations.
 
 ### Fixed reservations
 

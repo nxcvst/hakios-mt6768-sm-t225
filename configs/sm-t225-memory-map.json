@@ -2,12 +2,24 @@
   "schema_version": 1,
   "target": "Samsung Galaxy Tab A7 Lite LTE (SM-T225)",
   "source_dts": "../gta7lite.dts (Linux DTS supplied in workspace)",
-  "evidence_scope": "DTS declarations only; not a live bootloader memory map",
+  "evidence_scope": "DTS declarations plus user-provided Linux runtime observations; not a live bootloader handoff map",
   "physical_ram": {
     "base": "0x40000000",
     "size": "0xc0000000",
     "end_exclusive": "0x100000000",
-    "status": "declared by DTS; verify against live bootloader/Android memory reservations"
+    "status": "DTS declares this window; runtime Linux zone starts at the same 0x40000000 base, but the full bank layout and bootloader reservations remain unverified"
+  },
+  "runtime_linux_observation": {
+    "kernel_release": "4.19.191-28847731-abT225XXSBEYE4",
+    "zone": "DMA32",
+    "start_pfn": 262144,
+    "spanned_pages": 786431,
+    "present_pages": 757016,
+    "managed_pages": 705859,
+    "mem_total_kib": 2823436,
+    "cma_total_kib": 409600,
+    "interpretation": "Linux runtime counters supplied by the user. MemTotal equals managed_pages * 4 KiB, consistent with 4 KiB pages and start_pfn mapping to 0x40000000. Zone span is not a list of contiguous installed RAM banks; present and managed counts do not identify the missing or reserved physical ranges.",
+    "status": "live Linux allocator summary; not a bootloader handoff snapshot and not sufficient to assign loader/XNU memory"
   },
   "xnu_assignment": {
     "kernel_load_address": null,
