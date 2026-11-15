@@ -1,11 +1,8 @@
 # hakios-mt6768
 
-English · [Русский](README.ru.md)
-
-HakiOS for the **Infinix Hot 20 (X6826B)**: MediaTek Helio G85 (**MT6768**), GPU **Mali-G52 MC2**, eMMC.
+HakiOS for the **Samsung Galaxy Tab A7 Lite**: (**MT6768**), GPU **PowerVR GE8320**, eMMC.
 iOS 16.5's own user space (launchd → backboardd → SpringBoard → apps) on Apple's open XNU kernel
-(xnu-8796.121.2), with this phone's own loader and drivers. The first MediaTek phone of the project;
-everything else in the organisation is Qualcomm.
+(xnu-8796.121.2)
 
 Nothing on the phone is replaced for good: `mtkloader` sits in `boot_a` in front of Android's own kernel,
 starts XNU once when Android asks for it, and the phone comes back to Android after every run. The iOS
